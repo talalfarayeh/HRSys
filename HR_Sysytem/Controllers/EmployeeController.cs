@@ -1,21 +1,18 @@
-﻿/*using HR_System.BLL.DTOs;
+﻿using HR_System.BLL.DTOs;
 using HRSystem.BLL.Services;
-using HRSystem.DAL.Date;
-using HRSystem.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
- 
 
 namespace HR_Sysytem.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DepartmentController : ControllerBase
+    public class EmployeeController : ControllerBase
     {
-        private readonly IDepartmentService _departmentService;
+        private readonly IEmployeeService _employeeService;
 
-        public DepartmentController(IDepartmentService departmentService)
+        public EmployeeController(IEmployeeService employeeService)
         {
-            _departmentService = departmentService;
+            _employeeService = employeeService;
         }
 
         [HttpGet("")]
@@ -23,8 +20,8 @@ namespace HR_Sysytem.API.Controllers
         {
             try
             {
-                var departments = _departmentService.GetAllDepartments();
-                return Ok(departments);
+                var employees = _employeeService.GetAllEmployees();
+                return Ok(employees);
             }
             catch (Exception ex)
             {
@@ -37,8 +34,8 @@ namespace HR_Sysytem.API.Controllers
         {
             try
             {
-                var department = _departmentService.GetDepartmentById(id);
-                return Ok(department);
+                var employee = _employeeService.GetEmployeeById(id);
+                return Ok(employee);
             }
             catch (Exception ex)
             {
@@ -47,11 +44,11 @@ namespace HR_Sysytem.API.Controllers
         }
 
         [HttpPost("")]
-        public IActionResult PostSave([FromBody] DepartmentDTO model)
+        public IActionResult PostSave([FromBody] EmployeeDTO model)
         {
             try
             {
-                _departmentService.AddDepartment(model);
+                _employeeService.AddEmployee(model);
                 return Ok(model);
             }
             catch (Exception ex)
@@ -61,11 +58,11 @@ namespace HR_Sysytem.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Edit(int id, [FromBody] DepartmentDTO model)
+        public IActionResult Edit(int id, [FromBody] EmployeeDTO model)
         {
             try
             {
-                _departmentService.UpdateDepartment(id, model);
+                _employeeService.UpdateEmployee(id, model);
                 return Ok(model);
             }
             catch (Exception ex)
@@ -75,11 +72,11 @@ namespace HR_Sysytem.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteDepartment(int id)
+        public IActionResult DeleteEmployee(int id)
         {
             try
             {
-                _departmentService.DeleteDepartment(id);
+                _employeeService.DeleteEmployee(id);
                 return Ok();
             }
             catch (Exception ex)
@@ -89,4 +86,3 @@ namespace HR_Sysytem.API.Controllers
         }
     }
 }
-*/

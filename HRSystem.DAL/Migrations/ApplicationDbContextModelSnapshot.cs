@@ -40,7 +40,7 @@ namespace HR_Sysytem.Migrations
 
                     b.HasKey("DepartmentId");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("HR_Sysytem.Models.Employee", b =>
@@ -75,7 +75,7 @@ namespace HR_Sysytem.Migrations
 
                     b.HasKey("EmployeeId");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("HR_Sysytem.Models.EmployeeDepartment", b =>
@@ -90,7 +90,7 @@ namespace HR_Sysytem.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("EmployeeDepartments");
+                    b.ToTable("EmployeeDepartments", (string)null);
                 });
 
             modelBuilder.Entity("HR_Sysytem.Models.EmployeeDepartment", b =>

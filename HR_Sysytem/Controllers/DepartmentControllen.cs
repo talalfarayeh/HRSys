@@ -1,7 +1,5 @@
 ﻿using HR_System.BLL.DTOs;
 using HRSystem.BLL.Services;
-using HRSystem.DAL.Date;
-using HRSystem.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 
 
