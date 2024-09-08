@@ -3,6 +3,7 @@ using HRSystem.BLL.Interfaces;
 using HRSystem.BLL.Services;
 using HRSystem.DAL.Date;
 using HRSystem.DAL.Repositories;
+using HRSystem.DAL.Repositories.IRepositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

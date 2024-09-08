@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using HRSystem.DAL.Models;
 
-namespace HRSystem.DAL.Repositories
+namespace HRSystem.DAL.Repositories.IRepositories
 {
     public interface IDepartmentRepository
     {

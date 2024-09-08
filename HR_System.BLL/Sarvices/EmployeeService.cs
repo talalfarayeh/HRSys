@@ -1,9 +1,9 @@
 ﻿using HR_System.BLL.DTOs;
 using HRSystem.DAL.Models;
-using HRSystem.DAL.Repositories;
 using HRSystem.BLL.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using HRSystem.DAL.Repositories.IRepositories;
 
 namespace HRSystem.BLL.Services
 {

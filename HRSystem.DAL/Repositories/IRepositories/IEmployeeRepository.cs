@@ -1,7 +1,7 @@
 ﻿using HRSystem.DAL.Models;
 using System.Collections.Generic;
 
-namespace HRSystem.DAL.Repositories
+namespace HRSystem.DAL.Repositories.IRepositories
 {
     public interface IEmployeeRepository
     {

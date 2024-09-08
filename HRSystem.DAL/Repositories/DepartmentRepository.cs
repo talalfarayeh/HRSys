@@ -1,5 +1,6 @@
 ﻿using HRSystem.DAL.Date;
 using HRSystem.DAL.Models;
+using HRSystem.DAL.Repositories.IRepositories;
 using System.Collections.Generic;
 using System.Linq;
 

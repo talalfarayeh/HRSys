@@ -1,7 +1,7 @@
 ﻿using HR_System.BLL.DTOs;
 using HRSystem.DAL.Models;
 using HRSystem.BLL.Services;
-using HRSystem.DAL.Repositories;
+using HRSystem.DAL.Repositories.IRepositories;
 
 namespace HRSystem.BLL.Interfaces
 {
