@@ -46,5 +46,22 @@ namespace HRSystem.DAL.Repositories
                 _context.SaveChanges();
             }
         }
+        public void AssignEmployeeToDepartment(EmployeeDepartment employeeDepartment)
+        {
+            _context.EmployeeDepartments.Add(employeeDepartment);
+            _context.SaveChanges();
+        }
+
+        public void RemoveEmployeeFromDepartment(int employeeId, int departmentId)
+        {
+            var employeeDepartment = _context.EmployeeDepartments
+                .FirstOrDefault(ed => ed.EmployeeId == employeeId && ed.DepartmentId == departmentId);
+
+            if (employeeDepartment != null)
+            {
+                _context.EmployeeDepartments.Remove(employeeDepartment);
+                _context.SaveChanges();
+            }
+        }
     }
 }

@@ -1,29 +1,26 @@
 ﻿using HR_System.BLL.DTOs;
-using HRSystem.BLL.Services;
+using HR_System.BLL.Sarvices.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-
 
 namespace HR_Sysytem.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DepartmentController : ControllerBase
+    public class RoleController : ControllerBase
     {
-        private readonly IDepartmentService _departmentService;
-
-        public DepartmentController(IDepartmentService departmentService)
+        private readonly IRoleService _roleService;
+        public RoleController(IRoleService roleService)
         {
-            _departmentService = departmentService;
+            roleService = _roleService;
+            
         }
-
         [HttpGet("")]
         public IActionResult GetAll()
         {
             try
             {
-                var departments = _departmentService.GetAllDepartments();
-                return Ok(departments);
+                var roles = _roleService.GetAllRoles();
+                return Ok(roles);
             }
             catch (Exception ex)
             {
@@ -36,22 +33,9 @@ namespace HR_Sysytem.API.Controllers
         {
             try
             {
-                var department = _departmentService.GetDepartmentById(id);
-                return Ok(department);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [Authorize(Roles = "Admin")]
-        [HttpPost("")]
-        public IActionResult PostSave([FromBody] DepartmentDTO model)
-        {
-            try
-            {
-                _departmentService.AddDepartment(model);
-                return Ok(model);
+                var role = _roleService.GetRoleById(id);
+                if (role == null) return NotFound();
+                return Ok(role);
             }
             catch (Exception ex)
             {
@@ -59,26 +43,43 @@ namespace HR_Sysytem.API.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Edit(int id, [FromBody] DepartmentDTO model)
+        // إضافة دور جديد
+        [HttpPost("")]
+        public IActionResult AddRole([FromBody] RoleDTO role)
         {
             try
             {
-                _departmentService.UpdateDepartment(id, model);
-                return Ok(model);
+                _roleService.AddRole(role);
+                return Ok(role);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
-        [HttpDelete("{id}")]
-        public IActionResult DeleteDepartment(int id)
+
+        // تعديل دور معين
+        [HttpPut("{id}")]
+        public IActionResult UpdateRole(int id, [FromBody] RoleDTO role)
         {
             try
             {
-                _departmentService.DeleteDepartment(id);
+                _roleService.UpdateRole(id, role);
+                return Ok(role);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        // حذف دور معين
+        [HttpDelete("{id}")]
+        public IActionResult DeleteRole(int id)
+        {
+            try
+            {
+                _roleService.DeleteRole(id);
                 return Ok();
             }
             catch (Exception ex)
@@ -88,5 +89,3 @@ namespace HR_Sysytem.API.Controllers
         }
     }
 }
-
- 

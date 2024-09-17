@@ -11,5 +11,7 @@ namespace HRSystem.BLL.Services
         void AddDepartment(DepartmentDTO department);
         void UpdateDepartment(int id, DepartmentDTO department);
         void DeleteDepartment(int id);
+        void AssignEmployeeToDepartment(int employeeId, int departmentId);
+        void RemoveEmployeeFromDepartment(int employeeId, int departmentId);
     }
 }

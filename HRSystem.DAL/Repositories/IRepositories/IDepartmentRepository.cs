@@ -14,6 +14,8 @@ namespace HRSystem.DAL.Repositories.IRepositories
         void Add(Department department);
         void Update(Department department);
         void Delete(int id);
+        void AssignEmployeeToDepartment(EmployeeDepartment employeeDepartment);
+        void RemoveEmployeeFromDepartment(int employeeId, int departmentId);
     }
 }
 

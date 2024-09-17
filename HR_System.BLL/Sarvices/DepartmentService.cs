@@ -61,5 +61,19 @@ namespace HRSystem.BLL.Interfaces
         {
             _departmentRepository.Delete(id);
         }
+        public void AssignEmployeeToDepartment(int employeeId, int departmentId)
+        {
+            var employeeDepartment = new EmployeeDepartment
+            {
+                EmployeeId = employeeId,
+                DepartmentId = departmentId
+            };
+            _departmentRepository.AssignEmployeeToDepartment(employeeDepartment);
+        }
+
+        public void RemoveEmployeeFromDepartment(int employeeId, int departmentId)
+        {
+            _departmentRepository.RemoveEmployeeFromDepartment(employeeId, departmentId);
+        }
     }
 }

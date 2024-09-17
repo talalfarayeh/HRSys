@@ -11,7 +11,7 @@
         public DateTime DateHired { get; set; }
         public  ICollection<EmployeeDepartment> EmployeeDepartments { get; set; } = new List<EmployeeDepartment>();
 
-
+        public ICollection<EmployeeRole> EmployeeRoles { get; set; } = new List<EmployeeRole>();
 
     }
 }

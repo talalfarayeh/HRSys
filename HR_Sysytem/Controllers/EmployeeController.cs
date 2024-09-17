@@ -42,6 +42,22 @@ namespace HR_Sysytem.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        // Endpoint لجلب الملف الشخصي للموظف
+        [HttpGet("{id}/profile")]
+        public IActionResult GetEmployeeProfile(int id)
+        {
+            try
+            {
+                var profile = _employeeService.GetEmployeeProfile(id);
+                if (profile == null) return NotFound();
+
+                return Ok(profile);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("")]
         public IActionResult PostSave([FromBody] EmployeeDTO model)
@@ -78,6 +94,19 @@ namespace HR_Sysytem.API.Controllers
             {
                 _employeeService.DeleteEmployee(id);
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("search")]
+        public IActionResult SearchEmployees([FromQuery] string name, [FromQuery] string email, [FromQuery] string position, [FromQuery] int? departmentId, [FromQuery] int? roleId)
+        {
+            try
+            {
+                var employees = _employeeService.SearchEmployees(name, email, position, departmentId, roleId);
+                return Ok(employees);
             }
             catch (Exception ex)
             {
