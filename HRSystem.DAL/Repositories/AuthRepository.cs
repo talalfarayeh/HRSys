@@ -1,6 +1,7 @@
 ﻿using HRSystem.DAL.Date;
 using HRSystem.DAL.Models;
 using HRSystem.DAL.Repositories.IRepositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,10 @@ namespace HRSystem.DAL.Repositories
         }
         public Employee GetEmployeeByUsernameAndPassword(string username, string passwordHash)
         {
-            return _context.Employees.FirstOrDefault(e => e.Username == username && e.PasswordHash == passwordHash);
+            return _context.Employees
+         .Include(e => e.EmployeeRoles)
+             .ThenInclude(er => er.Role)
+         .FirstOrDefault(e => e.Username == username && e.PasswordHash == passwordHash);
 
         }
     }

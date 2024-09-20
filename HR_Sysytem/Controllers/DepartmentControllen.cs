@@ -44,7 +44,7 @@ namespace HR_Sysytem.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         [HttpPost("")]
         public IActionResult PostSave([FromBody] DepartmentDTO model)
         {

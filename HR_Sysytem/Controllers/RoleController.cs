@@ -11,7 +11,7 @@ namespace HR_Sysytem.API.Controllers
         private readonly IRoleService _roleService;
         public RoleController(IRoleService roleService)
         {
-            roleService = _roleService;
+            _roleService = roleService;
             
         }
         [HttpGet("")]

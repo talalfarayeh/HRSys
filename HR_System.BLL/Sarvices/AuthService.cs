@@ -39,6 +39,8 @@ namespace HRSystem.BLL.Services
                 Email = employee.Email,
                 Position = employee.Position,
                 DateHired = employee.DateHired,
+                Username = employee.Username,
+                PasswordHash = employee.PasswordHash,
                 // جلب الأدوار المرتبطة بالموظف
                 Roles = employee.EmployeeRoles.Select(er => er.Role.RoleName).ToList()
             };
