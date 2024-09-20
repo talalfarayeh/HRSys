@@ -1,44 +1,63 @@
-﻿using HR_System.BLL.DTOs;
+﻿using HR_System.BLL.DTOs; // استيراد الـ DTO
+using HR_System.BLL.Sarvices.Interfaces;
+using HRSystem.BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace HRSystem.API.Controllers
+namespace HR_Sysytem.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
+         
+        private readonly IAuthService _authService;
+        private readonly JwtOptions _jwtOptions;  
+
+        public AuthController(IAuthService authService, JwtOptions jwtOptions)
+        {
+            _authService = authService;
+            _jwtOptions = jwtOptions;
+        }
+
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginModel model)
         {
-            // تحقق بسيط، يمكنك استبداله بمنطق حقيقي للتحقق من البيانات
-            if (model.Username == "admin" && model.Password == "password")
+            var employee = _authService.Authenticate(model.Username, model.Password);
+
+            if (employee == null)
             {
-                var token = GenerateJwtToken(model.Username, "Admin");
-                return Ok(new { token });
+                return Unauthorized(); // إذا كانت بيانات تسجيل الدخول غير صحيحة
             }
-            return Unauthorized();
+
+            // توليد JWT Token مع معلومات الأدوار
+            var token = GenerateJwtToken(employee.Username, employee.Roles);
+            return Ok(new { token });
         }
 
-        private string GenerateJwtToken(string username, string role)
+        // توليد JWT Token بناءً على إعدادات JWT
+        private string GenerateJwtToken(string username, List<string> roles)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes("YourSecretKeyHere");
+            var key = Encoding.UTF8.GetBytes(_jwtOptions.SigningKey);
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, username)
+            };
+
+            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim(ClaimTypes.Name, username),
-                    new Claim(ClaimTypes.Role, role)
-                }),
-                Expires = DateTime.UtcNow.AddHours(1),
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddMinutes(_jwtOptions.Lifetime), // استخدام Lifetime من الإعدادات
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                Issuer = "https://yourdomain.com",
-                Audience = "https://yourdomain.com"
+                Issuer = _jwtOptions.Issuer, // استخدام Issuer من الإعدادات
+                Audience = _jwtOptions.Audience // استخدام Audience من الإعدادات
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);

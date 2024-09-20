@@ -27,7 +27,9 @@ namespace HRSystem.BLL.Services
                 Email = e.Email,
                 DateOfBirth = e.DateOfBirth,
                 Position = e.Position,
-                DateHired = e.DateHired
+                DateHired = e.DateHired,
+                Username = e.Username,
+                PasswordHash = e.PasswordHash,
             }).ToList();
         }
 
@@ -42,7 +44,10 @@ namespace HRSystem.BLL.Services
                 Email = employee.Email,
                 DateOfBirth = employee.DateOfBirth,
                 Position = employee.Position,
-                DateHired = employee.DateHired
+                DateHired = employee.DateHired,
+                Username = employee.Username,
+                PasswordHash = employee.PasswordHash,
+
             };
         }
 
@@ -55,7 +60,9 @@ namespace HRSystem.BLL.Services
                 Email = employee.Email,
                 DateOfBirth = employee.DateOfBirth,
                 Position = employee.Position,
-                DateHired = employee.DateHired
+                DateHired = employee.DateHired,
+                Username = employee.Username,
+                PasswordHash = employee.PasswordHash,
             };
             _employeeRepository.Add(newEmployee);
         }
@@ -71,6 +78,8 @@ namespace HRSystem.BLL.Services
                 existingEmployee.DateOfBirth = employee.DateOfBirth;
                 existingEmployee.Position = employee.Position;
                 existingEmployee.DateHired = employee.DateHired;
+                   existingEmployee.Username = employee.Username;
+                existingEmployee.PasswordHash = employee.PasswordHash;
                 _employeeRepository.Update(existingEmployee);
             }
         }
@@ -110,7 +119,9 @@ namespace HRSystem.BLL.Services
                 Email = e.Email,
                 DateOfBirth = e.DateOfBirth,
                 Position = e.Position,
-                DateHired = e.DateHired
+                DateHired = e.DateHired,
+                Username = e.Username,
+                PasswordHash = e.PasswordHash,
             }).ToList();
 
 
@@ -132,6 +143,8 @@ namespace HRSystem.BLL.Services
                 DateOfBirth = employee.DateOfBirth,
                 Position = employee.Position,
                 DateHired = employee.DateHired,
+                Username= employee.Username,
+                PasswordHash = employee.PasswordHash,
 
                 // جلب الأقسام التي ينتمي إليها الموظف
                 Departments = employee.EmployeeDepartments

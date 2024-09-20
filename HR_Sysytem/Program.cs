@@ -29,26 +29,40 @@ builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IRoleService, RoleService>();
-var jwtOptions = builder.Configuration.GetSection("Jwt").Get<JwtOptions>();
-builder.Services.AddAuthentication()
-    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, option =>
+builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+//  Õ„Ì· ≈⁄œ«œ«  JWT „‰ appsettings.json
+var jwtOptionsSection = builder.Configuration.GetSection("JWT");
+builder.Services.Configure<JwtOptions>(jwtOptionsSection);
+
+// «” Œ—«Ã ≈⁄œ«œ«  JWT
+var jwtOptions = jwtOptionsSection.Get<JwtOptions>();
+
+//  ”ÃÌ· JwtOptions ﬂŒœ„… Singleton ·Ì „ Õﬁ‰Â« ⁄»— DI
+builder.Services.AddSingleton(jwtOptions);
+
+// ≈⁄œ«œ «·„’«œﬁ… »«” Œœ«„ JWT
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
     {
-        option.SaveToken = true;
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-        option.TokenValidationParameters = new TokenValidationParameters
+        options.SaveToken = true;
+
+        options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
             ValidIssuer = jwtOptions.Issuer,
+
             ValidateAudience = true,
             ValidAudience = jwtOptions.Audience,
+
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SigningKey))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SigningKey)),
+
+            ValidateLifetime = true, // ·· Õﬁﬁ „‰ ’·«ÕÌ… «· Êﬂ‰
+            ClockSkew = TimeSpan.Zero // · Ã‰» «· √ŒÌ— ›Ì «· Õﬁﬁ „‰ «‰ Â«¡ «·’·«ÕÌ…
         };
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-
-
-
     });
+
 var app = builder.Build();
 
 
@@ -60,10 +74,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
-});
+ 
 
 app.UseAuthorization();
 
