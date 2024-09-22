@@ -90,6 +90,25 @@ namespace HRSystem.Tests
             
             _mockEmployeeRepository.Verify(repo => repo.Delete(1), Times.Once);
         }
+        [Fact]
+        public void SearchEmployees_WithMatchingCriteria_ShouldReturnFilteredEmployees()
+        {
+             
+            var employees = new List<Employee>
+            {
+                new Employee { EmployeeId = 1, FirstName = "John", LastName = "Doe", Email = "john@example.com", Position = "Developer" },
+                new Employee { EmployeeId = 2, FirstName = "Jane", LastName = "Smith", Email = "jane@example.com", Position = "Manager" }
+            };
 
+            _mockEmployeeRepository.Setup(repo => repo.GetAll()).Returns(employees);
+
+             
+            var result = _employeeService.SearchEmployees("John", null, null, null, null).ToList();
+
+            
+            Assert.NotNull(result);
+            Assert.Single(result);  
+            Assert.Equal("John", result[0].FirstName);
+        }
     }
 }

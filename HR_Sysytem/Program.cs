@@ -16,13 +16,13 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+ 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    // Add JWT support in Swagger UI
+     
     c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
         In = Microsoft.OpenApi.Models.ParameterLocation.Header,
@@ -47,12 +47,12 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// Configure Entity Framework and DI services
+ 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("HrSystemConnection"),
     b => b.MigrationsAssembly("HRSystem.DAL")));
 
-// Register repositories and services for Dependency Injection
+ 
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
@@ -62,11 +62,11 @@ builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
-// Load JWT configuration from appsettings.json
+
 var jwtOptionsSection = builder.Configuration.GetSection("Jwt");
 builder.Services.Configure<JwtOptions>(jwtOptionsSection);
 
-// Extract JWT options
+ 
 var jwtOptions = jwtOptionsSection.Get<JwtOptions>();
 
 
@@ -74,7 +74,7 @@ var jwtOptions = jwtOptionsSection.Get<JwtOptions>();
 
 
 
-// Configure JWT authentication
+ 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -90,14 +90,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SigningKey)),
 
-            ValidateLifetime = true, // Ensure token expiration is validated
+            ValidateLifetime = true,  
             ClockSkew = TimeSpan.FromMinutes(2)
         };
     });
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
+ 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -106,9 +106,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Enable authentication and authorization
-app.UseAuthentication(); // Ensure authentication middleware is used
-app.UseAuthorization();  // Ensure authorization middleware is used
+ 
+app.UseAuthentication();  
+app.UseAuthorization();   
 
 app.MapControllers();
 
