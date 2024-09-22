@@ -63,5 +63,13 @@ namespace HRSystem.DAL.Repositories
                 _context.SaveChanges();
             }
         }
+
+        public IEnumerable<Employee> GetEmployeesByDepartment(int departmentId)
+        {
+            return _context.EmployeeDepartments
+                .Where(ed => ed.DepartmentId == departmentId)
+                .Select(ed => ed.Employee)
+                .ToList();
+        }
     }
 }

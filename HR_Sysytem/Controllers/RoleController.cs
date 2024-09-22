@@ -43,7 +43,7 @@ namespace HR_Sysytem.API.Controllers
             }
         }
 
-        // إضافة دور جديد
+        
         [HttpPost("")]
         public IActionResult AddRole([FromBody] RoleDTO role)
         {
@@ -58,7 +58,7 @@ namespace HR_Sysytem.API.Controllers
             }
         }
 
-        // تعديل دور معين
+         
         [HttpPut("{id}")]
         public IActionResult UpdateRole(int id, [FromBody] RoleDTO role)
         {
@@ -73,7 +73,7 @@ namespace HR_Sysytem.API.Controllers
             }
         }
 
-        // حذف دور معين
+         
         [HttpDelete("{id}")]
         public IActionResult DeleteRole(int id)
         {

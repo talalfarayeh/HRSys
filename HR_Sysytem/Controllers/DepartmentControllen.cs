@@ -86,7 +86,50 @@ namespace HR_Sysytem.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+       
+        [HttpPost("{departmentId}/assign/{employeeId}")]
+        public IActionResult AssignEmployeeToDepartment(int departmentId, int employeeId)
+        {
+            try
+            {
+                _departmentService.AssignEmployeeToDepartment(employeeId, departmentId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
+        [HttpDelete("{departmentId}/remove/{employeeId}")]
+        public IActionResult RemoveEmployeeFromDepartment(int departmentId, int employeeId)
+        {
+            try
+            {
+                _departmentService.RemoveEmployeeFromDepartment(employeeId, departmentId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
+        [HttpGet("{departmentId}/employees")]
+        public IActionResult GetEmployeesByDepartment(int departmentId)
+        {
+            try
+            {
+                var employees = _departmentService.GetEmployeesByDepartment(departmentId);
+                return Ok(employees);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
 
+ 
  

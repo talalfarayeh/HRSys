@@ -9,11 +9,11 @@ namespace HR_System.BLL.Sarvices.Interfaces
 {
     public interface IRoleService
     {
-        IEnumerable<RoleDTO> GetAllRoles(); // جلب جميع الأدوار
-        RoleDTO GetRoleById(int id); // جلب دور معين حسب الـ ID
-        void AddRole(RoleDTO role); // إضافة دور جديد
-        void UpdateRole(int id, RoleDTO role); // تحديث دور
-        void DeleteRole(int id); // حذف دور
-        bool IsRoleSaved(int roleId); // التحقق من وجود دور معين
+        IEnumerable<RoleDTO> GetAllRoles();  
+        RoleDTO GetRoleById(int id);  
+        void AddRole(RoleDTO role);  
+        void UpdateRole(int id, RoleDTO role);  
+        void DeleteRole(int id);  
+        bool IsRoleSaved(int roleId);  
     }
 }

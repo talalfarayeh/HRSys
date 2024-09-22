@@ -30,6 +30,7 @@ namespace HRSystem.BLL.Services
                 DateHired = e.DateHired,
                 Username = e.Username,
                 PasswordHash = e.PasswordHash,
+               
             }).ToList();
         }
 
@@ -88,7 +89,7 @@ namespace HRSystem.BLL.Services
         {
             _employeeRepository.Delete(id);
         }
-        public IEnumerable<EmployeeDTO> SearchEmployees(string name, string email, string position, int? departmentId, int? roleId) 
+        public IEnumerable<EmployeeDTO> SearchEmployees(string name, string? email, string? position, int? departmentId, int? roleId) 
         {
             var query = _employeeRepository.GetAll();
             if (!string.IsNullOrEmpty(name))
@@ -122,6 +123,13 @@ namespace HRSystem.BLL.Services
                 DateHired = e.DateHired,
                 Username = e.Username,
                 PasswordHash = e.PasswordHash,
+                Roles =   e.EmployeeRoles
+                               .Select(er => er.Role.RoleName)
+                               .ToList(),
+                Departments = e.EmployeeDepartments
+                               .Select(er => er.Department.DepartmentName)
+                               .ToList()
+
             }).ToList();
 
 
@@ -143,8 +151,7 @@ namespace HRSystem.BLL.Services
                 DateOfBirth = employee.DateOfBirth,
                 Position = employee.Position,
                 DateHired = employee.DateHired,
-                Username= employee.Username,
-                PasswordHash = employee.PasswordHash,
+                
 
                 // جلب الأقسام التي ينتمي إليها الموظف
                 Departments = employee.EmployeeDepartments
@@ -157,6 +164,20 @@ namespace HRSystem.BLL.Services
                                .ToList()
             };
         }
+        public void UpdateEmployeeProfile(EmployeeProfileDTO employeeProfile)
+        {
+            var existingEmployee = _employeeRepository.GetById(employeeProfile.EmployeeId);
+            if (existingEmployee != null)
+            {
+                existingEmployee.FirstName = employeeProfile.FirstName;
+                existingEmployee.LastName = employeeProfile.LastName;
+                existingEmployee.Email = employeeProfile.Email;
+                existingEmployee.Position = employeeProfile.Position;
+               
+                _employeeRepository.Update(existingEmployee);
+            }
+        }
+
 
     }
 }

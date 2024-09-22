@@ -16,6 +16,7 @@ namespace HRSystem.DAL.Repositories.IRepositories
         void Delete(int id);
         void AssignEmployeeToDepartment(EmployeeDepartment employeeDepartment);
         void RemoveEmployeeFromDepartment(int employeeId, int departmentId);
+        IEnumerable<Employee> GetEmployeesByDepartment(int departmentId);
     }
 }
 

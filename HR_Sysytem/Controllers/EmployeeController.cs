@@ -42,7 +42,7 @@ namespace HR_Sysytem.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        // Endpoint لجلب الملف الشخصي للموظف
+        
         [HttpGet("{id}/profile")]
         public IActionResult GetEmployeeProfile(int id)
         {
@@ -101,7 +101,7 @@ namespace HR_Sysytem.API.Controllers
             }
         }
         [HttpGet("search")]
-        public IActionResult SearchEmployees([FromQuery] string name, [FromQuery] string email, [FromQuery] string position, [FromQuery] int? departmentId, [FromQuery] int? roleId)
+        public IActionResult SearchEmployees([FromQuery] string name, [FromQuery] string? email, [FromQuery] string? position, [FromQuery] int? departmentId, [FromQuery] int? roleId)
         {
             try
             {

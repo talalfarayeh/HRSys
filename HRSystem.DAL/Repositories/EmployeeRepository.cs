@@ -1,6 +1,7 @@
 ﻿using HRSystem.DAL.Date;
 using HRSystem.DAL.Models;
 using HRSystem.DAL.Repositories.IRepositories;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,12 +18,14 @@ namespace HRSystem.DAL.Repositories
 
         public IEnumerable<Employee> GetAll()
         {
-            return _context.Employees.ToList();
+            return _context.Employees.Include(e => e.EmployeeRoles).ThenInclude(er => er.Role).Include(e => e.EmployeeDepartments)
+            .ThenInclude(er => er.Department).ToList();
         }
 
         public Employee GetById(int id)
         {
-            return _context.Employees.FirstOrDefault(e => e.EmployeeId == id);
+            return _context.Employees.Include(e => e.EmployeeDepartments)
+            .ThenInclude(er => er.Department).Include(e => e.EmployeeRoles).ThenInclude(er => er.Role).FirstOrDefault(e => e.EmployeeId == id);
         }
 
         public void Add(Employee employee)

@@ -12,6 +12,7 @@
         public string Position { get; set; } = string.Empty;
         public DateTime DateHired { get; set; }
         public List<string> Roles { get; set; } = new List<string>();
+        public List<string> Departments { get; set; } = new List<string>();
 
     }
 }

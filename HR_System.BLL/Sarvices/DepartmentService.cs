@@ -75,5 +75,19 @@ namespace HRSystem.BLL.Interfaces
         {
             _departmentRepository.RemoveEmployeeFromDepartment(employeeId, departmentId);
         }
+        public IEnumerable<EmployeeDTO> GetEmployeesByDepartment(int departmentId)
+        {
+            var employees = _departmentRepository.GetEmployeesByDepartment(departmentId);
+            return employees.Select(e => new EmployeeDTO
+            {
+                EmployeeId = e.EmployeeId,
+                FirstName = e.FirstName,
+                LastName = e.LastName,
+                Email = e.Email,
+                Position = e.Position
+                
+                
+            }).ToList();
+        }
     }
 }

@@ -91,7 +91,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SigningKey)),
 
             ValidateLifetime = true, // Ensure token expiration is validated
-            ClockSkew = TimeSpan.Zero // Remove delay in token expiration
+            ClockSkew = TimeSpan.FromMinutes(2)
         };
     });
 

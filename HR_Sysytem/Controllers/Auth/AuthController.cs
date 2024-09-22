@@ -17,11 +17,11 @@ namespace HR_Sysytem.API.Controllers
         private readonly IAuthService _authService;
         private readonly JwtOptions _jwtOptions;
 
-        // Inject IOptions<JwtOptions> to resolve the JwtOptions
+         
         public AuthController(IAuthService authService, IOptions<JwtOptions> jwtOptions)
         {
             _authService = authService;
-            _jwtOptions = jwtOptions.Value;  // Retrieve the actual JwtOptions object
+            _jwtOptions = jwtOptions.Value;   
         }
 
         [HttpPost("login")]
@@ -31,15 +31,15 @@ namespace HR_Sysytem.API.Controllers
 
             if (employee == null)
             {
-                return Unauthorized(); // إذا كانت بيانات تسجيل الدخول غير صحيحة
+                return Unauthorized(); 
             }
 
-            // توليد JWT Token مع معلومات الأدوار
+            
             var token = GenerateJwtToken(employee.Username, employee.Roles);
             return Ok(new { token });
         }
 
-        // توليد JWT Token بناءً على إعدادات JWT
+         
         private string GenerateJwtToken(string username, List<string> roles)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -56,10 +56,10 @@ namespace HR_Sysytem.API.Controllers
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(_jwtOptions.Lifetime), // استخدام Lifetime من الإعدادات
+                Expires = DateTime.UtcNow.AddMinutes(_jwtOptions.Lifetime),  
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                Issuer = _jwtOptions.Issuer, // استخدام Issuer من الإعدادات
-                Audience = _jwtOptions.Audience ,// استخدام Audience من الإعدادات
+                Issuer = _jwtOptions.Issuer,  
+                Audience = _jwtOptions.Audience , 
                 
             };
 

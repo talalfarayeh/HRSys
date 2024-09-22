@@ -11,7 +11,9 @@ namespace HRSystem.BLL.Services
         void UpdateEmployee(int id, EmployeeDTO employee);
         void DeleteEmployee(int id);
         IEnumerable<EmployeeDTO> SearchEmployees(string name, string email, string position, int? departmentId, int? roleId);
-        // دالة جديدة لجلب الملف الشخصي للموظف
+       
         EmployeeProfileDTO GetEmployeeProfile(int id);
+
+        public void UpdateEmployeeProfile(EmployeeProfileDTO employeeProfile);
     }
 }

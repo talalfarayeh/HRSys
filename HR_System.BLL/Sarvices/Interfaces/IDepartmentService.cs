@@ -13,5 +13,6 @@ namespace HRSystem.BLL.Services
         void DeleteDepartment(int id);
         void AssignEmployeeToDepartment(int employeeId, int departmentId);
         void RemoveEmployeeFromDepartment(int employeeId, int departmentId);
+        IEnumerable<EmployeeDTO> GetEmployeesByDepartment(int departmentId);
     }
 }
