@@ -91,7 +91,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SigningKey)),
 
             ValidateLifetime = true,  
-            ClockSkew = TimeSpan.FromMinutes(2)
+            
         };
     });
 
@@ -107,8 +107,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
  
-app.UseAuthentication();  
-app.UseAuthorization();   
+
+app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllers();
 

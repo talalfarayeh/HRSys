@@ -17,7 +17,7 @@ namespace HR_Sysytem.API.Controllers
             _departmentService = departmentService;
         }
 
-        [HttpGet("")]
+        [HttpGet("getall")]
         public IActionResult GetAll()
         {
             try

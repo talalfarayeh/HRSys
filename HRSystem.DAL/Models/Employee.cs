@@ -11,6 +11,8 @@
         public DateTime DateOfBirth { get; set; }
         public string Position { get; set; } = string.Empty;
         public DateTime DateHired { get; set; }
+
+        public ICollection<LeaveRequest> LeaveRequests { get; set; } = new List<LeaveRequest>();
         public  ICollection<EmployeeDepartment> EmployeeDepartments { get; set; } = new List<EmployeeDepartment>();
 
         public ICollection<EmployeeRole> EmployeeRoles { get; set; } = new List<EmployeeRole>();
