@@ -8,7 +8,7 @@ namespace HRSystem.DAL.Models
 {
    public class PerformanceReview
     {
-        public int ReviewId { get; set; }  
+        public int PerformanceReviewId { get; set; }  
         public int EmployeeId { get; set; }   
         public int ReviewerId { get; set; }  
         public DateTime ReviewDate { get; set; }    
@@ -16,8 +16,8 @@ namespace HRSystem.DAL.Models
         public string? Comments { get; set; }   
 
          
-        public Employee? Employee { get; set; }
-        public Employee? Reviewer { get; set; }
-
+        public Employee Employee { get; set; }
+        public Employee Reviewer { get; set; }
+        
     }
 }

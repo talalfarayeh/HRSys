@@ -16,6 +16,7 @@
         public  ICollection<EmployeeDepartment> EmployeeDepartments { get; set; } = new List<EmployeeDepartment>();
 
         public ICollection<EmployeeRole> EmployeeRoles { get; set; } = new List<EmployeeRole>();
-
+        public ICollection<PerformanceReview> PerformanceReviews { get; set; } = new List<PerformanceReview>();
+        public ICollection<Goal> Goals { get; set; } = new List<Goal>();
     }
 }

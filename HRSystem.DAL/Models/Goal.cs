@@ -15,6 +15,6 @@ namespace HRSystem.DAL.Models
         public bool IsCompleted { get; set; }  
 
         
-        public Employee? Employee { get; set; }
+        public Employee Employee { get; set; }
     }
 }

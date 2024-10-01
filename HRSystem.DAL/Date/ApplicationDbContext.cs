@@ -24,6 +24,23 @@ namespace HRSystem.DAL.Date
         {
             base.OnModelCreating(modelBuilder);
 
+            // تعريف المفتاح الأساسي للـ PerformanceReview
+            modelBuilder.Entity<PerformanceReview>()
+                .HasKey(pr => pr.PerformanceReviewId);
+
+            // تعريف العلاقة مع EmployeeId (Cascade Delete مفعل)
+            modelBuilder.Entity<PerformanceReview>()
+                .HasOne(pr => pr.Employee)
+                .WithMany(e => e.PerformanceReviews)  // هنا تم إصلاح الخطأ بعد إضافة PerformanceReviews في Employee
+                .HasForeignKey(pr => pr.EmployeeId)
+                .OnDelete(DeleteBehavior.Cascade); // Cascade Delete
+
+            // تعريف العلاقة مع ReviewerId (بدون Cascade Delete لتجنب المشكلة)
+            modelBuilder.Entity<PerformanceReview>()
+                .HasOne(pr => pr.Reviewer)
+                .WithMany()
+                .HasForeignKey(pr => pr.ReviewerId)
+                .OnDelete(DeleteBehavior.Restrict); // No Action (بدون الحذف المتتابع)
 
             modelBuilder.Entity<Department>()
                 .ToTable("Departments")
