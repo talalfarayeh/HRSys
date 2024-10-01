@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HR_System.BLL.DTOs
 {
-    class LeaveRequestDTO
+    public class LeaveRequestDTO
     {
         public int LeaveRequestId { get; set; }
         public int EmployeeId { get; set; }

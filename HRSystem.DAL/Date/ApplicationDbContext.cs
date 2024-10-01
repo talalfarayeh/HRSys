@@ -17,6 +17,8 @@ namespace HRSystem.DAL.Date
         public DbSet<EmployeeDepartment> EmployeeDepartments { get; set; }
         public DbSet<EmployeeRole> EmployeeRoles { get; set; }
         public DbSet<LeaveRequest> LeaveRequests { get; set; }
+        public DbSet<PerformanceReview> PerformanceReviews { get; set; }
+        public DbSet<Goal> Goals { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

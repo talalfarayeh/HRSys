@@ -24,9 +24,11 @@ namespace HRSystem.DAL.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public Task<List<LeaveRequest>> GetLeaveHistoryAsync(int employeeId)
+        public async Task<List<LeaveRequest>> GetLeaveHistoryAsync(int employeeId)
         {
-            throw new NotImplementedException();
+            return await _context.LeaveRequests
+                                .Where(lr => lr.EmployeeId == employeeId)
+                                .ToListAsync();
         }
 
         public async Task<LeaveRequest> GetLeaveRequestByIdAsync(int leaveRequestId)
