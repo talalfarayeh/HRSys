@@ -18,5 +18,12 @@
         public ICollection<EmployeeRole> EmployeeRoles { get; set; } = new List<EmployeeRole>();
         public ICollection<PerformanceReview> PerformanceReviews { get; set; } = new List<PerformanceReview>();
         public ICollection<Goal> Goals { get; set; } = new List<Goal>();
+
+        // حقل لمدير الموظف
+        public int? ManagerId { get; set; }  // Nullable لتمييز الموظف إذا كان ليس لديه مدير (قد يكون هو المدير)
+        public Employee? Manager { get; set; }  // خاصية تنقل تشير إلى المدير (موظف أيضًا)
+
+        // قائمة الموظفين التابعين لهذا المدير
+        public ICollection<Employee> Subordinates { get; set; } = new List<Employee>();
     }
 }

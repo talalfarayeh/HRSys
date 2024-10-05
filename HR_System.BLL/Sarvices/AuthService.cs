@@ -18,7 +18,7 @@ namespace HRSystem.BLL.Services
             _authRepository = authRepository;
         }
 
-        // طريقة المصادقة: التحقق من اسم المستخدم وكلمة المرور
+         
         public EmployeeDTO Authenticate(string username, string password)
         {
             // تشفير كلمة المرور قبل التحقق

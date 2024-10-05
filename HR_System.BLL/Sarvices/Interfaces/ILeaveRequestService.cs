@@ -14,6 +14,8 @@ namespace HR_System.BLL.Sarvices.Interfaces
         Task RejectLeaveRequest(int leaveRequestId);
         Task<List<LeaveRequestDTO>> GetLeaveRequestsByStatus(string status);
         Task<List<LeaveRequestDTO>> GetLeaveHistory(int employeeId);
-
+        Task<int> GetLeaveBalanceAsync(int employeeId);
+        Task<List<LeaveRequestDTO>> GetUpcomingLeavesAsync(int employeeId);
+        Task<List<LeaveRequestDTO>> GetPendingLeaveRequestsAsync();
     }
 }

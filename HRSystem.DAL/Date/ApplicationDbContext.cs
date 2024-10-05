@@ -60,7 +60,12 @@ namespace HRSystem.DAL.Date
                 .Property(e => e.Email)
                 .IsRequired()
                 .HasMaxLength(255);
-
+            // إضافة العلاقة بين الموظف ومديره
+            modelBuilder.Entity<Employee>()
+                .HasOne(e => e.Manager)  // علاقة بين الموظف ومديره
+                .WithMany(m => m.Subordinates)  // علاقة المدير بموظفيه
+                .HasForeignKey(e => e.ManagerId)  // المفتاح الأجنبي هو ManagerId
+                .OnDelete(DeleteBehavior.Restrict);  // منع الحذف المتسلسل
 
             modelBuilder.Entity<EmployeeDepartment>()
                 .ToTable("EmployeeDepartments")

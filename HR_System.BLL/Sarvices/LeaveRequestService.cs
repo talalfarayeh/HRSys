@@ -86,7 +86,36 @@ namespace HR_System.BLL.Sarvices
                 Status = lr.Status
             }).ToList();
         }
+        public async Task<int> GetLeaveBalanceAsync(int employeeId)
+        {
+            return await _leaveRequestRepository.GetLeaveBalanceAsync(employeeId);
+        }
+        public async Task<List<LeaveRequestDTO>> GetUpcomingLeavesAsync(int employeeId)
+        {
+            var upcomingLeaves = await _leaveRequestRepository.GetUpcomingLeavesAsync(employeeId);
+            return upcomingLeaves.Select(lr => new LeaveRequestDTO
+            {
+                LeaveRequestId = lr.LeaveRequestId,
+                StartDate = lr.StartDate,
+                EndDate = lr.EndDate,
+                LeaveType = lr.LeaveType
+            }).ToList();
 
+        }
+         public async Task<List<LeaveRequestDTO>> GetPendingLeaveRequestsAsync()
+        {
+            var leaveRequests = await _leaveRequestRepository.GetPendingLeaveRequestsAsync();
+            return leaveRequests.Select(lr => new LeaveRequestDTO 
+            {
+                LeaveRequestId = lr.LeaveRequestId,
+                EmployeeId = lr.EmployeeId,
+                StartDate = lr.StartDate,
+                EndDate = lr.EndDate,
+                LeaveType = lr.LeaveType,
+                Status = lr.Status
+
+            } ).ToList();
+        }
 
 
 
