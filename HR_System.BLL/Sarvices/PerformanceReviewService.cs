@@ -70,13 +70,14 @@ namespace HR_System.BLL.Sarvices
 
             return teamReviews.Select(r => new PerformanceReviewDTO
             {
+                PerformanceReviewId = r.PerformanceReviewId,
                 EmployeeId = r.EmployeeId,
                 ReviewerId = r.ReviewerId,
                 ReviewDate = r.ReviewDate,
                 Score = r.Score,
                 Comments = r.Comments,
-                EmployeeName = r.Employee.FirstName + " " + r.Employee.LastName, // تضمين اسم الموظف
-                ReviewerName = r.Reviewer.FirstName + " " + r.Reviewer.LastName  // تضمين اسم المراجع (المدير)
+                EmployeeFirstName = r.Employee.FirstName,   
+                
             }).ToList();
         }
     }

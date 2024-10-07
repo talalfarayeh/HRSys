@@ -13,6 +13,6 @@ namespace HR_System.BLL.DTOs
         public string GoalDescription { get; set; }
         public DateTime TargetDate { get; set; }
         public bool IsCompleted { get; set; }
-        public string EmployeeName { get; internal set; }
+        public string EmployeeFirstName { get; set; } = string.Empty;
     }
 }

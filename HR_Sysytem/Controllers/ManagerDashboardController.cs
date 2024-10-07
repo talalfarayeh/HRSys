@@ -52,16 +52,15 @@ namespace HR_Sysytem.API.Controllers
 */        [HttpGet("GetTeamPerformanceReviews")]
         public async Task<IActionResult> GetTeamPerformanceReviews()
         {
-            var teamPerformanceSummaries = await _performanceReviewService.GetTeamPerformanceSummariesAsync();  // بدون managerId
+            var teamPerformanceSummaries = await _performanceReviewService.GetTeamPerformanceSummariesAsync();  
             return Ok(teamPerformanceSummaries);
         }
-        // فقط المدراء يمكنهم الوصول إلى هذا الـ Endpoint
+        
 /*        [Authorize(Roles = "Manager")]
-*/        [HttpGet("GetTeamGoals")]
+*/        [HttpGet("getTeamGoals")]
         public async Task<IActionResult> GetTeamGoals()
         {
-            // استدعاء خدمة الأهداف الخاصة بالفريق للمدير
-            var teamGoals = await _goalService.GetTeamGoalsAsync();  // لاحظ حذف استخدام managerId
+             var teamGoals = await _goalService.GetTeamGoalsAsync();  
             return Ok(teamGoals);
         }
     }

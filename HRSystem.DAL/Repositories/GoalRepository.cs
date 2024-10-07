@@ -42,11 +42,10 @@ namespace HRSystem.DAL.Repositories
         }
         public async Task<List<Goal>> GetTeamGoalsAsync()
         {
-            // استرجاع الأهداف الخاصة بالفريق بدون الحاجة لاستخدام managerId
+            
             return await _context.Goals
-                .Where(g => g.Employee.EmployeeRoles.Any(er => er.Role.RoleName == "Manager"))  // التأكد أن الموظفين مرتبطين بدور "Manager"
-                .Include(g => g.Employee) // تضمين معلومات الموظف
-                .ToListAsync();
+            .Include(g => g.Employee)  
+            .ToListAsync();
         }
 
     }

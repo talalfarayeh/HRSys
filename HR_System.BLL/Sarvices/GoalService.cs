@@ -71,7 +71,7 @@ namespace HR_System.BLL.Sarvices
         }
         public async Task<List<GoalDTO>> GetTeamGoalsAsync()
         {
-            // استرجاع الأهداف الخاصة بالفريق بدون الحاجة للـ managerId
+           
             var goals = await _goalRepository.GetTeamGoalsAsync();
 
             return goals.Select(g => new GoalDTO
@@ -81,7 +81,7 @@ namespace HR_System.BLL.Sarvices
                 GoalDescription = g.GoalDescription,
                 TargetDate = g.TargetDate,
                 IsCompleted = g.IsCompleted,
-                EmployeeName = g.Employee.FirstName + " " + g.Employee.LastName
+                EmployeeFirstName = g.Employee.FirstName
             }).ToList();
         }
     }

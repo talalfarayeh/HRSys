@@ -16,7 +16,7 @@ namespace HRSystem.DAL.Repositories
         public LeaveRequestRepository(ApplicationDbContext context)
         {
             _context = context;
-         
+
         }
         public async Task AddLeaveRequestAsync(LeaveRequest leaveRequest)
         {
@@ -24,7 +24,7 @@ namespace HRSystem.DAL.Repositories
             await _context.SaveChangesAsync();
         }
 
-      
+
 
         public async Task<List<LeaveRequest>> GetLeaveHistoryAsync(int employeeId)
         {
@@ -59,13 +59,13 @@ namespace HRSystem.DAL.Repositories
         public async Task<List<LeaveRequest>> GetUpcomingLeavesAsync(int employeeId)
         {
             return await _context.LeaveRequests.
-            Where(Ir=>Ir.EmployeeId == employeeId && Ir.Status =="Approved" && Ir.StartDate > DateTime.Now)
+            Where(Ir => Ir.EmployeeId == employeeId && Ir.Status == "Approved" && Ir.StartDate > DateTime.Now)
             .ToListAsync();
         }
         public async Task<List<LeaveRequest>> GetPendingLeaveRequestsAsync()
 
         {
-            return await _context.LeaveRequests.Where(Ir=> Ir.Status == "Pending").ToListAsync();
+            return await _context.LeaveRequests.Where(Ir => Ir.Status == "Pending").ToListAsync();
         }
 
         

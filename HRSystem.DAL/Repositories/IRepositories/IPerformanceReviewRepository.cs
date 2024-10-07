@@ -12,7 +12,7 @@ namespace HRSystem.DAL.Repositories.IRepositories
         Task AddPerformanceReviewAsync(PerformanceReview review);
         Task<List<PerformanceReview>> GetPerformanceReviewsByEmployeeIdAsync(int employeeId);
         Task<List<PerformanceReview>> GetPerformanceReviewHistoryAsync(int employeeId);//D
-        Task<List<PerformanceReview>> GetTeamPerformanceReviewsAsync();  // حذف managerId
+        Task<List<PerformanceReview>> GetTeamPerformanceReviewsAsync();  
 
     }
 }

@@ -12,6 +12,6 @@ namespace HR_System.BLL.Sarvices.Interfaces
         Task SubmitPerformanceReview(PerformanceReviewDTO reviewDto);
         Task<List<PerformanceReviewDTO>> GetPerformanceReviewsByEmployeeId(int employeeId);
         Task<List<PerformanceReviewDTO>> GetPerformanceReviewHistoryAsync(int employeeId);
-        Task<List<PerformanceReviewDTO>> GetTeamPerformanceSummariesAsync();  // حذف managerId
+        Task<List<PerformanceReviewDTO>> GetTeamPerformanceSummariesAsync();  
     }
 }

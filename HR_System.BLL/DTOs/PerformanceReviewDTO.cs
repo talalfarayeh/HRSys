@@ -15,7 +15,7 @@ namespace HR_System.BLL.DTOs
         public int Score { get; set; }
         public string? Comments { get; set; }
 
-        public string? EmployeeName { get; set; }
-        public string ReviewerName { get; internal set; }
+        public string EmployeeFirstName { get; set; } = string.Empty;
+
     }
 }

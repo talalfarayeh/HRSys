@@ -33,14 +33,14 @@ namespace HRSystem.DAL.Repositories
           
         }
 
-        // استرجاع مراجعات أداء الفريق بدون الحاجة لاستخدام managerId
+ 
         public async Task<List<PerformanceReview>> GetTeamPerformanceReviewsAsync()
         {
             return await _context.PerformanceReviews
-                .Include(r => r.Employee)  // تضمين معلومات الموظف
-                .Include(r => r.Reviewer)  // تضمين معلومات المدير (المراجع)
-                .Where(r => r.Reviewer.EmployeeRoles.Any(er => er.Role.RoleName == "Manager"))  // التأكد أن المراجع مدير
-                .ToListAsync();
+
+              .Include(pr => pr.Employee)   
+            .Include(pr => pr.Reviewer)   
+            .ToListAsync();
         }
     }
 }
