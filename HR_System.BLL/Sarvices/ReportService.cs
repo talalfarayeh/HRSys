@@ -1,6 +1,7 @@
 ﻿using HR_System.BLL.DTOs;
 using HR_System.BLL.DTOs.ReportDTO;
 using HR_System.BLL.Sarvices.Interfaces;
+using HRSystem.DAL.Models;
 using HRSystem.DAL.Repositories;
 using HRSystem.DAL.Repositories.IRepositories;
 using Microsoft.EntityFrameworkCore;
@@ -20,16 +21,15 @@ namespace HR_System.BLL.Sarvices
         {
             _reportRepository = reportRepository;
         }
-        public async Task<List<EmployeeLeaveReportDTO>> GetAverageLeavePerEmployeeAsync()
+        public async Task<List<AverageLeaveTakenDTO>> GetAverageLeavePerEmployeeAsync()
         {
-            var employees = await _reportRepository.GetEmployeesWithLeaveDataAsync();
-
-            return employees.Select(e => new EmployeeLeaveReportDTO
+            var employees = await _reportRepository.GetAverageLeavePerEmployeeAsync();
+ 
+            return employees.Select(e => new AverageLeaveTakenDTO
             {
-                EmployeeName = $"{e.FirstName} {e.LastName}",
-                AverageLeaveTaken = e.LeaveRequests
-                    .Where(lr => lr.Status == "Approved")
-                    .Average(lr => EF.Functions.DateDiffDay(lr.StartDate, lr.EndDate))
+                EmployeeId = e.EmployeeId,
+                EmployeeName = e.FirstName + " " + e.LastName,
+                AverageLeaveTaken = e.AverageLeaveTaken
             }).ToList();
         }
         public async Task<List<DepartmentPerformanceDTO>> GetPerformanceTrendsAsync()

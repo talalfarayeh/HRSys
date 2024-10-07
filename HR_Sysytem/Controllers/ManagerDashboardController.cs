@@ -24,7 +24,7 @@ namespace HR_Sysytem.API.Controllers
             _performanceReviewService = performanceReviewService;
             _goalService = goalService;
         }
-        // جلب الطلبات المعلقة للموافقة أو الرفض
+        
         [HttpGet("pendingLeaveRequests")]
         public async Task<IActionResult> GetPendingLeaveRequests()
         {
@@ -32,7 +32,7 @@ namespace HR_Sysytem.API.Controllers
             return Ok(leaveRequests);
         }
 
-        // الموافقة على طلب الإجازة
+        
         [HttpPost("{LeaveRequestId}/approve")]
         public async Task<IActionResult> ApproveLeaveRequest(int LeaveRequestId)
         {
@@ -40,8 +40,8 @@ namespace HR_Sysytem.API.Controllers
             return Ok("Leave request approved.");
         }
 
-        // رفض طلب الإجازة
-        [HttpPost("{LeaveRequestId}/reject")]
+        
+        [HttpPost("RejectLeaveRequest/{LeaveRequestId}/reject")]
         public async Task<IActionResult> RejectLeaveRequest(int LeaveRequestId)
         {
             await _leaveRequestService.RejectLeaveRequest(LeaveRequestId);

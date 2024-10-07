@@ -15,11 +15,17 @@ namespace HR_Sysytem.API.Controllers
         {
             _reportService = reportService;
         }
-        [HttpGet("LeaveUsageReport")]
+        [HttpGet("average-leave-per-employee")]
         public async Task<IActionResult> GetAverageLeavePerEmployee()
         {
-            var report = await _reportService.GetAverageLeavePerEmployeeAsync();
-            return Ok(report);
+            var result = await _reportService.GetAverageLeavePerEmployeeAsync();
+
+            if (result == null || result.Count == 0)
+            {
+                return NotFound("No leave data found for employees.");
+            }
+
+            return Ok(result);
         }
         [HttpGet("PerformanceTrendsReport")]
         public async Task<IActionResult> GetPerformanceTrends()

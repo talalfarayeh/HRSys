@@ -1,4 +1,6 @@
-﻿namespace HRSystem.DAL.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace HRSystem.DAL.Models
 {
     public class Employee
     {
@@ -12,6 +14,9 @@
         public string Position { get; set; } = string.Empty;
         public DateTime DateHired { get; set; }
 
+        [NotMapped]   
+        public double AverageLeaveTaken { get; set; }
+
         public ICollection<LeaveRequest> LeaveRequests { get; set; } = new List<LeaveRequest>();
         public  ICollection<EmployeeDepartment> EmployeeDepartments { get; set; } = new List<EmployeeDepartment>();
 
@@ -19,9 +24,9 @@
         public ICollection<PerformanceReview> PerformanceReviews { get; set; } = new List<PerformanceReview>();
         public ICollection<Goal> Goals { get; set; } = new List<Goal>();
 
-        // حقل لمدير الموظف
-        public int? ManagerId { get; set; }  // Nullable لتمييز الموظف إذا كان ليس لديه مدير (قد يكون هو المدير)
-        public Employee? Manager { get; set; }  // خاصية تنقل تشير إلى المدير (موظف أيضًا)
+
+        public int? ManagerId { get; set; }
+        public Employee? Manager { get; set; }
 
         // قائمة الموظفين التابعين لهذا المدير
         public ICollection<Employee> Subordinates { get; set; } = new List<Employee>();

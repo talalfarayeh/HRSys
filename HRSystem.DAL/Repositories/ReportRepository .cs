@@ -18,11 +18,24 @@ namespace HRSystem.DAL.Repositories
         {
             _context = context;
         }
-        public async Task<List<Employee>> GetEmployeesWithLeaveDataAsync()
+        public async Task<List<Employee>> GetAverageLeavePerEmployeeAsync()
         {
-            return await _context.Employees
-                .Include(e => e.LeaveRequests)   
+             var employeesWithLeaveData = await _context.Employees
+                .Include(e => e.LeaveRequests)  
+                .Where(e => e.LeaveRequests.Any(lr => lr.Status == "Approved"))   
+                .Select(e => new Employee
+                {
+                    EmployeeId = e.EmployeeId,
+                    FirstName = e.FirstName,
+                    LastName = e.LastName,
+                
+                    AverageLeaveTaken = e.LeaveRequests
+                        .Where(lr => lr.Status == "Approved")
+                        .Average(lr => EF.Functions.DateDiffDay(lr.StartDate, lr.EndDate))   
+                })
                 .ToListAsync();
+
+            return employeesWithLeaveData;
         }
         public async Task<List<Employee>> GetEmployeesWithPerformanceDataAsync()
         {

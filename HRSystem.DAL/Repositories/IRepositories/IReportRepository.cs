@@ -9,7 +9,7 @@ namespace HRSystem.DAL.Repositories.IRepositories
 {
      public interface IReportRepository
     {
-        Task<List<Employee>> GetEmployeesWithLeaveDataAsync();
+        Task<List<Employee>> GetAverageLeavePerEmployeeAsync();
         Task<List<Employee>> GetEmployeesWithPerformanceDataAsync();
         Task<List<Employee>> GetEmployeesWithGoalsDataAsync();
     }
