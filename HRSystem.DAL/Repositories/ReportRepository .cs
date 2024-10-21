@@ -41,6 +41,8 @@ namespace HRSystem.DAL.Repositories
         {
             return await _context.Employees
                 .Include(e => e.PerformanceReviews)
+                .Include(e => e.EmployeeDepartments)  
+                .ThenInclude(ed => ed.Department)     
                 .ToListAsync();
         }
         public async Task<List<Employee>> GetEmployeesWithGoalsDataAsync()

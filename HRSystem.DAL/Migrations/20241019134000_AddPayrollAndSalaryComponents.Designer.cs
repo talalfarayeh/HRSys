@@ -4,6 +4,7 @@ using HRSystem.DAL.Date;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HR_Sysytem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241019134000_AddPayrollAndSalaryComponents")]
+    partial class AddPayrollAndSalaryComponents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,30 +24,6 @@ namespace HR_Sysytem.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("HRSystem.DAL.Models.Benefit", b =>
-                {
-                    b.Property<int>("BenefitId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BenefitId"));
-
-                    b.Property<string>("BenefitName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsMandatory")
-                        .HasColumnType("bit");
-
-                    b.HasKey("BenefitId");
-
-                    b.ToTable("Benefits");
-                });
 
             modelBuilder.Entity("HRSystem.DAL.Models.Department", b =>
                 {
@@ -114,35 +93,6 @@ namespace HR_Sysytem.Migrations
                     b.HasIndex("ManagerId");
 
                     b.ToTable("Employees", (string)null);
-                });
-
-            modelBuilder.Entity("HRSystem.DAL.Models.EmployeeBenefit", b =>
-                {
-                    b.Property<int>("EmployeeBenefitId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeBenefitId"));
-
-                    b.Property<int>("BenefitId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("CostToCompany")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("EnrollmentDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("EmployeeBenefitId");
-
-                    b.HasIndex("BenefitId");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.ToTable("EmployeeBenefits");
                 });
 
             modelBuilder.Entity("HRSystem.DAL.Models.EmployeeDepartment", b =>
@@ -361,25 +311,6 @@ namespace HR_Sysytem.Migrations
                     b.Navigation("Manager");
                 });
 
-            modelBuilder.Entity("HRSystem.DAL.Models.EmployeeBenefit", b =>
-                {
-                    b.HasOne("HRSystem.DAL.Models.Benefit", "Benefit")
-                        .WithMany("EmployeeBenefits")
-                        .HasForeignKey("BenefitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HRSystem.DAL.Models.Employee", "Employee")
-                        .WithMany("EmployeeBenefits")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Benefit");
-
-                    b.Navigation("Employee");
-                });
-
             modelBuilder.Entity("HRSystem.DAL.Models.EmployeeDepartment", b =>
                 {
                     b.HasOne("HRSystem.DAL.Models.Department", "Department")
@@ -481,11 +412,6 @@ namespace HR_Sysytem.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("HRSystem.DAL.Models.Benefit", b =>
-                {
-                    b.Navigation("EmployeeBenefits");
-                });
-
             modelBuilder.Entity("HRSystem.DAL.Models.Department", b =>
                 {
                     b.Navigation("EmployeeDepartments");
@@ -493,8 +419,6 @@ namespace HR_Sysytem.Migrations
 
             modelBuilder.Entity("HRSystem.DAL.Models.Employee", b =>
                 {
-                    b.Navigation("EmployeeBenefits");
-
                     b.Navigation("EmployeeDepartments");
 
                     b.Navigation("EmployeeRoles");

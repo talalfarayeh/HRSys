@@ -1,4 +1,4 @@
-﻿using HR_System.BLL.DTOs; // استيراد الـ DTO
+﻿using HR_System.BLL.DTOs; 
 using HR_System.BLL.Sarvices.Interfaces;
 using HRSystem.BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;

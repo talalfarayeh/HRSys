@@ -24,6 +24,11 @@ namespace HRSystem.DAL.Models
         public ICollection<PerformanceReview> PerformanceReviews { get; set; } = new List<PerformanceReview>();
         public ICollection<Goal> Goals { get; set; } = new List<Goal>();
 
+        public ICollection<Payroll> Payrolls { get; set; } = new List<Payroll>();
+        public ICollection<SalaryComponent> SalaryComponents { get; set; } = new List<SalaryComponent>();
+        public ICollection<EmployeeBenefit> EmployeeBenefits { get; set; } = new List<EmployeeBenefit>();
+
+
 
         public int? ManagerId { get; set; }
         public Employee? Manager { get; set; }

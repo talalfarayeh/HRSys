@@ -19,6 +19,10 @@ namespace HRSystem.DAL.Date
         public DbSet<LeaveRequest> LeaveRequests { get; set; }
         public DbSet<PerformanceReview> PerformanceReviews { get; set; }
         public DbSet<Goal> Goals { get; set; }
+        public DbSet<Payroll> Payrolls { get; set; }
+        public DbSet<SalaryComponent> SalaryComponents { get; set; }
+        public DbSet<Benefit> Benefits { get; set; }
+        public DbSet<EmployeeBenefit> EmployeeBenefits { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -104,6 +108,49 @@ namespace HRSystem.DAL.Date
                 .HasOne(er => er.Role)
                 .WithMany(r => r.EmployeeRoles)
                 .HasForeignKey(er => er.RoleId);
+
+            // Payroll Table
+            modelBuilder.Entity<Payroll>()
+                .HasKey(p => p.PayrollId);
+
+            modelBuilder.Entity<Payroll>()
+                .HasOne(p => p.Employee)
+                .WithMany(e => e.Payrolls)
+                .HasForeignKey(p => p.EmployeeId);
+
+            // SalaryComponents Table
+            modelBuilder.Entity<SalaryComponent>()
+                .HasKey(sc => sc.SalaryComponentId);
+
+            modelBuilder.Entity<SalaryComponent>()
+                .HasOne(sc => sc.Employee)
+                .WithMany(e => e.SalaryComponents)
+                .HasForeignKey(sc => sc.EmployeeId);
+            // Payroll entity configuration
+            modelBuilder.Entity<Payroll>()
+                .Property(p => p.BasicSalary)
+                .HasColumnType("decimal(18,2)"); // تحديد النوع والدقة للـ decimal
+
+            modelBuilder.Entity<Payroll>()
+                .Property(p => p.Bonus)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<Payroll>()
+                .Property(p => p.Deductions)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<Payroll>()
+                .Property(p => p.NetSalary)
+                .HasColumnType("decimal(18,2)");
+
+            // SalaryComponent entity configuration
+            modelBuilder.Entity<SalaryComponent>()
+                .Property(sc => sc.Amount)
+                .HasColumnType("decimal(18,2)"); // تحديد النوع والدقة للـ decimal
+
+            modelBuilder.Entity<EmployeeBenefit>()
+       .Property(e => e.CostToCompany)
+       .HasColumnType("decimal(18,2)");
         }
     }
 }

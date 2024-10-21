@@ -70,6 +70,16 @@ builder.Services.AddScoped<IGoalService, GoalService>();
 builder.Services.AddScoped<IPerformanceReviewService, PerformanceReviewService>();
 builder.Services.AddScoped<IReportRepository, ReportRepository>();
 builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddScoped<IPayrollService, PayrollService>();
+builder.Services.AddScoped<IPayrollRepository, PayrollRepository>();
+builder.Services.AddScoped<ISalaryComponentRepository, SalaryComponentRepository>();
+builder.Services.AddScoped<IPayrollPdfService, PayrollPdfService>();
+builder.Services.AddScoped<IBenefitRepository, BenefitRepository>();
+builder.Services.AddScoped<IEmployeeBenefitRepository, EmployeeBenefitRepository>();
+builder.Services.AddScoped<IBenefitService, BenefitService>();
+builder.Services.AddScoped<IEmployeeBenefitService, EmployeeBenefitService>();
+
+
 
 
 

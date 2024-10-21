@@ -40,7 +40,9 @@ namespace HR_System.BLL.Sarvices
                 .Select(g => new DepartmentPerformanceDTO
                 {
                     DepartmentName = g.Key,
-                    AverageScore = g.Average(e => e.PerformanceReviews.Average(pr => pr.Score))
+                    AverageScore = g.Average(e => e.PerformanceReviews.Any()   
+                        ? e.PerformanceReviews.Average(pr => pr.Score)
+                        : 0)  
                 }).ToList();
         }
         public async Task<List<EmployeeGoalCompletionDTO>> GetGoalCompletionRatesAsync()
