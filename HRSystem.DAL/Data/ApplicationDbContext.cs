@@ -23,28 +23,27 @@ namespace HRSystem.DAL.Date
         public DbSet<SalaryComponent> SalaryComponents { get; set; }
         public DbSet<Benefit> Benefits { get; set; }
         public DbSet<EmployeeBenefit> EmployeeBenefits { get; set; }
+        public DbSet<TaxRule> TaxRules { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // تعريف المفتاح الأساسي للـ PerformanceReview
-            modelBuilder.Entity<PerformanceReview>()
+             modelBuilder.Entity<PerformanceReview>()
                 .HasKey(pr => pr.PerformanceReviewId);
 
-            // تعريف العلاقة مع EmployeeId (Cascade Delete مفعل)
-            modelBuilder.Entity<PerformanceReview>()
+             modelBuilder.Entity<PerformanceReview>()
                 .HasOne(pr => pr.Employee)
-                .WithMany(e => e.PerformanceReviews)  // هنا تم إصلاح الخطأ بعد إضافة PerformanceReviews في Employee
+                .WithMany(e => e.PerformanceReviews)  
                 .HasForeignKey(pr => pr.EmployeeId)
-                .OnDelete(DeleteBehavior.Cascade); // Cascade Delete
+                .OnDelete(DeleteBehavior.Cascade);  
 
-            // تعريف العلاقة مع ReviewerId (بدون Cascade Delete لتجنب المشكلة)
+           
             modelBuilder.Entity<PerformanceReview>()
                 .HasOne(pr => pr.Reviewer)
                 .WithMany()
                 .HasForeignKey(pr => pr.ReviewerId)
-                .OnDelete(DeleteBehavior.Restrict); // No Action (بدون الحذف المتتابع)
+                .OnDelete(DeleteBehavior.Restrict); 
 
             modelBuilder.Entity<Department>()
                 .ToTable("Departments")
@@ -64,12 +63,12 @@ namespace HRSystem.DAL.Date
                 .Property(e => e.Email)
                 .IsRequired()
                 .HasMaxLength(255);
-            // إضافة العلاقة بين الموظف ومديره
+            
             modelBuilder.Entity<Employee>()
-                .HasOne(e => e.Manager)  // علاقة بين الموظف ومديره
-                .WithMany(m => m.Subordinates)  // علاقة المدير بموظفيه
-                .HasForeignKey(e => e.ManagerId)  // المفتاح الأجنبي هو ManagerId
-                .OnDelete(DeleteBehavior.Restrict);  // منع الحذف المتسلسل
+                .HasOne(e => e.Manager)  
+                .WithMany(m => m.Subordinates)  
+                .HasForeignKey(e => e.ManagerId)  
+                .OnDelete(DeleteBehavior.Restrict);  
 
             modelBuilder.Entity<EmployeeDepartment>()
                 .ToTable("EmployeeDepartments")
@@ -97,19 +96,18 @@ namespace HRSystem.DAL.Date
             modelBuilder.Entity<EmployeeRole>().ToTable("EmployeeRoles")
       .HasKey(er => new { er.EmployeeId, er.RoleId });
 
-            // العلاقة بين EmployeeRole و Employee
+            
             modelBuilder.Entity<EmployeeRole>()
                 .HasOne(er => er.Employee)
                 .WithMany(e => e.EmployeeRoles)
                 .HasForeignKey(er => er.EmployeeId);
-
-            // العلاقة بين EmployeeRole و Role
+ 
             modelBuilder.Entity<EmployeeRole>()
                 .HasOne(er => er.Role)
                 .WithMany(r => r.EmployeeRoles)
                 .HasForeignKey(er => er.RoleId);
 
-            // Payroll Table
+            
             modelBuilder.Entity<Payroll>()
                 .HasKey(p => p.PayrollId);
 
@@ -118,7 +116,7 @@ namespace HRSystem.DAL.Date
                 .WithMany(e => e.Payrolls)
                 .HasForeignKey(p => p.EmployeeId);
 
-            // SalaryComponents Table
+            
             modelBuilder.Entity<SalaryComponent>()
                 .HasKey(sc => sc.SalaryComponentId);
 
@@ -126,10 +124,10 @@ namespace HRSystem.DAL.Date
                 .HasOne(sc => sc.Employee)
                 .WithMany(e => e.SalaryComponents)
                 .HasForeignKey(sc => sc.EmployeeId);
-            // Payroll entity configuration
+            
             modelBuilder.Entity<Payroll>()
                 .Property(p => p.BasicSalary)
-                .HasColumnType("decimal(18,2)"); // تحديد النوع والدقة للـ decimal
+                .HasColumnType("decimal(18,2)");  
 
             modelBuilder.Entity<Payroll>()
                 .Property(p => p.Bonus)
@@ -143,14 +141,26 @@ namespace HRSystem.DAL.Date
                 .Property(p => p.NetSalary)
                 .HasColumnType("decimal(18,2)");
 
-            // SalaryComponent entity configuration
+           
             modelBuilder.Entity<SalaryComponent>()
                 .Property(sc => sc.Amount)
-                .HasColumnType("decimal(18,2)"); // تحديد النوع والدقة للـ decimal
-
+                .HasColumnType("decimal(18,2)");  
             modelBuilder.Entity<EmployeeBenefit>()
        .Property(e => e.CostToCompany)
        .HasColumnType("decimal(18,2)");
+
+
+            modelBuilder.Entity<TaxRule>()
+                .Property(tr => tr.MinSalary)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<TaxRule>()
+                .Property(tr => tr.MaxSalary)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<TaxRule>()
+                .Property(tr => tr.TaxPercentage)
+                .HasColumnType("decimal(5,2)");
         }
     }
 }

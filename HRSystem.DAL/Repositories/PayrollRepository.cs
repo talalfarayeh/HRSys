@@ -47,5 +47,14 @@ namespace HRSystem.DAL.Repositories
         payroll.PaymentStatus = "Completed";
         await _context.SaveChangesAsync();
     }
-}
+
+        public async Task<List<Payroll>> GetPayrollsForYearAsync(int year)
+        {
+
+            return await _context.Payrolls
+                .Include(p => p.Employee)   
+                .Where(p => p.PaymentDate.Year == year)
+                .ToListAsync();
+        }
+    }
 }

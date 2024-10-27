@@ -13,5 +13,7 @@ namespace HRSystem.DAL.Repositories.IRepositories
         Task<List<Payroll>> GetPayrollHistoryByEmployeeIdAsync(int employeeId);
         Task<Payroll> GetPayrollByIdAsync(int payrollId);
         Task ApprovePayrollAsync(int payrollId);
+        Task<List<Payroll>> GetPayrollsForYearAsync(int year);
+
     }
 }

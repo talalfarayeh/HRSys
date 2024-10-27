@@ -19,6 +19,13 @@ namespace HRSystem.DAL.Repositories
             _context = context;
         }
 
+        public async Task AddAsync(SalaryComponent salaryComponent)
+        {
+
+            await _context.SalaryComponents.AddAsync(salaryComponent);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<List<SalaryComponent>> GetSalaryComponentsByEmployeeIdAsync(int employeeId)
         {
             return await _context.SalaryComponents

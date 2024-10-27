@@ -68,6 +68,9 @@ namespace HRSystem.DAL.Repositories
             return await _context.LeaveRequests.Where(Ir => Ir.Status == "Pending").ToListAsync();
         }
 
-        
+        public async Task<List<LeaveRequest>> GetApprovedLeaveRequestsByEmployeeIdAsync(int employeeId)
+        {
+            return await _context.LeaveRequests.Where(Ir => Ir.EmployeeId == employeeId && Ir.Status == "Approved").ToListAsync();
+        }
     }
 }

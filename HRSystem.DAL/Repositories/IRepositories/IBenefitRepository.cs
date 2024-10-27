@@ -13,5 +13,6 @@ namespace HRSystem.DAL.Repositories.IRepositories
         Task<Benefit> GetBenefitByIdAsync(int benefitId);
         Task AddBenefitAsync(Benefit benefit);
         Task UpdateBenefitAsync(Benefit benefit);
+        Task<List<Benefit>> GetBenefitsByEmployeeIdAsync(int employeeId);
     }
 }

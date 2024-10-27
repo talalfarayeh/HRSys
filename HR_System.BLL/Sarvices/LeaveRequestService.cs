@@ -14,7 +14,7 @@ namespace HR_System.BLL.Sarvices
     {
         private readonly ILeaveRequestRepository _leaveRequestRepository;
         private readonly INotificationService _notificationService;
-
+        private const int TotalAnnualLeaves = 30;
         public LeaveRequestService(ILeaveRequestRepository leaveRequestRepository, INotificationService notificationService)
         {
             _leaveRequestRepository = leaveRequestRepository;
@@ -117,7 +117,17 @@ namespace HR_System.BLL.Sarvices
             } ).ToList();
         }
 
-
-
+        public async Task<LeaveBalanceDTO> GetLeaveBalanceAsyncByLeaveBalanceDTO(int employeeId)
+        {
+            var approvedLeaves = await _leaveRequestRepository.GetApprovedLeaveRequestsByEmployeeIdAsync(employeeId);
+            int usedLeaveDays = approvedLeaves.Sum(lr => (lr.EndDate - lr.StartDate).Days + 1);
+            int remainingLeaves = TotalAnnualLeaves - usedLeaveDays;
+            return new LeaveBalanceDTO
+            {
+                TotalLeaves = TotalAnnualLeaves,
+                UsedLeaves = usedLeaveDays,
+                RemainingLeaves = remainingLeaves
+            };
+        }
     }
 }

@@ -1,11 +1,8 @@
 using HR_System.BLL.Sarvices.Interfaces;
 using HR_System.BLL.Sarvices;
- 
- 
 using HR_Sysytem.API;
 using HRSystem.BLL.Interfaces;
 using HRSystem.BLL.Services;
- 
 using HRSystem.DAL.Date;
 using HRSystem.DAL.Repositories;
 using HRSystem.DAL.Repositories.IRepositories;
@@ -78,6 +75,16 @@ builder.Services.AddScoped<IBenefitRepository, BenefitRepository>();
 builder.Services.AddScoped<IEmployeeBenefitRepository, EmployeeBenefitRepository>();
 builder.Services.AddScoped<IBenefitService, BenefitService>();
 builder.Services.AddScoped<IEmployeeBenefitService, EmployeeBenefitService>();
+builder.Services.AddScoped<IComplianceReportService, ComplianceReportService>();
+builder.Services.AddScoped<ITaxRuleRepository, TaxRuleRepository>();
+builder.Services.AddScoped<ISalaryComponentService, SalaryComponentService>();
+
+
+
+
+/*builder.Services.AddDependencies();
+*/
+
 
 
 
@@ -115,6 +122,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             
         };
     });
+
 
 var app = builder.Build();
 

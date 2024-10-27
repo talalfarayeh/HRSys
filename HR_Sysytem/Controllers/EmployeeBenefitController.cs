@@ -21,7 +21,7 @@ namespace HR_Sysytem.API.Controllers
             await _employeeBenefitService.EnrollEmployeeInBenefitAsync(employeeId, benefitId, costToCompany);
             return Ok("Employee enrolled in benefit successfully.");
         }
-        [HttpPut("{employeeBenefitId}/update")]
+        [HttpPut("{employeeBenefitId}/updateEmployeeBenefit")]
         public async Task<IActionResult> UpdateEmployeeBenefit(int employeeBenefitId, [FromBody] decimal newCostToCompany)
         {
             await _employeeBenefitService.UpdateEmployeeBenefitAsync(employeeBenefitId, newCostToCompany);

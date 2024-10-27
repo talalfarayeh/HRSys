@@ -69,5 +69,16 @@ namespace HR_System.BLL.Sarvices
 
             await _benefitRepository.UpdateBenefitAsync(benefit);
         }
+        public async Task<List<BenefitDTO>> GetEmployeeBenefitsAsync(int employeeId)
+        {
+            var benefits = await _benefitRepository.GetBenefitsByEmployeeIdAsync(employeeId);
+            return benefits.Select(b => new BenefitDTO
+            {
+                BenefitId = b.BenefitId,
+                BenefitName = b.BenefitName,
+                IsMandatory = b.IsMandatory,
+                Description = b.Description
+            }).ToList();
+        }
     }
 }

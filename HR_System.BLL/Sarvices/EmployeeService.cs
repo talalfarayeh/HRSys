@@ -173,7 +173,8 @@ namespace HRSystem.BLL.Services
                 existingEmployee.LastName = employeeProfile.LastName;
                 existingEmployee.Email = employeeProfile.Email;
                 existingEmployee.Position = employeeProfile.Position;
-               
+                existingEmployee.PasswordHash = employeeProfile.PasswordHash;
+                existingEmployee.Username = employeeProfile.Username;
                 _employeeRepository.Update(existingEmployee);
             }
         }

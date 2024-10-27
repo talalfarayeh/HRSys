@@ -40,5 +40,14 @@ namespace HRSystem.DAL.Repositories
            _context.Benefits.Update(benefit);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<List<Benefit>> GetBenefitsByEmployeeIdAsync(int employeeId)
+        {
+
+            return await _context.EmployeeBenefits
+                .Where(eb => eb.EmployeeId == employeeId)
+                .Select(eb => eb.Benefit)
+                .ToListAsync();
+        }
     }
 }

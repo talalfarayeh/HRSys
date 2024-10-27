@@ -13,5 +13,6 @@ namespace HR_System.BLL.Sarvices.Interfaces
         Task<BenefitDTO> GetBenefitByIdAsync(int benefitId);
         Task AddBenefitAsync(BenefitDTO benefitDto);
         Task UpdateBenefitAsync(BenefitDTO benefitDto);
+        Task<List<BenefitDTO>> GetEmployeeBenefitsAsync(int employeeId);
     }
 }

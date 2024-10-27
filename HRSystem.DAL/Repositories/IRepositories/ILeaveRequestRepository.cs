@@ -17,8 +17,8 @@ namespace HRSystem.DAL.Repositories.IRepositories
         Task<int> GetLeaveBalanceAsync(int employeeId);//D
         Task<List<LeaveRequest>> GetUpcomingLeavesAsync(int employeeId);//D
         Task<List<LeaveRequest>> GetPendingLeaveRequestsAsync();//DM
+        Task<List<LeaveRequest>> GetApprovedLeaveRequestsByEmployeeIdAsync(int employeeId);
 
-     
 
 
 

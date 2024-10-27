@@ -17,11 +17,15 @@ namespace HR_System.BLL.Sarvices
         private readonly IPayrollRepository _payrollRepository;
         private readonly ISalaryComponentRepository _salaryComponentRepository;
         private readonly IEmployeeBenefitRepository _employeeBenefitRepository;
-        public PayrollService(IPayrollRepository payrollRepository, ISalaryComponentRepository salaryComponentRepository, IEmployeeBenefitRepository employeeBenefitRepository)
+        private readonly ITaxRuleRepository _taxRuleRepository;  
+
+        public PayrollService(IPayrollRepository payrollRepository, ISalaryComponentRepository salaryComponentRepository,
+            IEmployeeBenefitRepository employeeBenefitRepository, ITaxRuleRepository taxRuleRepository)
         {
             _payrollRepository = payrollRepository;
             _salaryComponentRepository = salaryComponentRepository;
             _employeeBenefitRepository = employeeBenefitRepository;
+            _taxRuleRepository = taxRuleRepository;  
         }
 
 
@@ -40,7 +44,12 @@ namespace HR_System.BLL.Sarvices
             var employeeBenefits = await _employeeBenefitRepository.GetBenefitsByEmployeeIdAsync(employeeId);
             var totalBenefitsCost = employeeBenefits.Sum(eb => eb.CostToCompany);
 
-            var netSalary = ((basicSalary / 30) * workingDays) + bonus - deductions - totalBenefitsCost;
+            var grossSalary = ((basicSalary / 30) * workingDays) + bonus - deductions - totalBenefitsCost;
+
+            var taxRule = await _taxRuleRepository.GetTaxRuleForSalaryAsync(grossSalary);
+            var taxAmount = grossSalary * (taxRule?.TaxPercentage ?? 0) / 100;
+
+            var netSalary = grossSalary - taxAmount;
 
             var payroll = new Payroll
             {
