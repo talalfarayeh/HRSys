@@ -40,8 +40,7 @@ namespace HR_System.BLL.Sarvices
             var bonus = salaryComponents.FirstOrDefault(sc => sc.ComponentName == "Bonus")?.Amount ?? 0;
             var deductions = salaryComponents.FirstOrDefault(sc => sc.ComponentName == "Deductions")?.Amount ?? 0;
 
-            // الحصول على المزايا المرتبطة بالموظف
-            var employeeBenefits = await _employeeBenefitRepository.GetBenefitsByEmployeeIdAsync(employeeId);
+             var employeeBenefits = await _employeeBenefitRepository.GetBenefitsByEmployeeIdAsync(employeeId);
             var totalBenefitsCost = employeeBenefits.Sum(eb => eb.CostToCompany);
 
             var grossSalary = ((basicSalary / 30) * workingDays) + bonus - deductions - totalBenefitsCost;

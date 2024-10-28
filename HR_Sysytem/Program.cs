@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using HRSystem.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,43 +51,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     b => b.MigrationsAssembly("HRSystem.DAL")));
 
  
-builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
-builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-builder.Services.AddScoped<IDepartmentService, DepartmentService>();
-builder.Services.AddScoped<IEmployeeService, EmployeeService>();
-builder.Services.AddScoped<IRoleRepository, RoleRepository>();
-builder.Services.AddScoped<IRoleService, RoleService>();
-builder.Services.AddScoped<IAuthRepository, AuthRepository>();
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();
-builder.Services.AddScoped<ILeaveRequestService, LeaveRequestService>();
-builder.Services.AddScoped<INotificationService, NotificationService>();
-builder.Services.AddScoped<IGoalRepository, GoalRepository>();
-builder.Services.AddScoped<IPerformanceReviewRepository, PerformanceReviewRepository>();
-builder.Services.AddScoped<IGoalService, GoalService>();
-builder.Services.AddScoped<IPerformanceReviewService, PerformanceReviewService>();
-builder.Services.AddScoped<IReportRepository, ReportRepository>();
-builder.Services.AddScoped<IReportService, ReportService>();
-builder.Services.AddScoped<IPayrollService, PayrollService>();
-builder.Services.AddScoped<IPayrollRepository, PayrollRepository>();
-builder.Services.AddScoped<ISalaryComponentRepository, SalaryComponentRepository>();
-builder.Services.AddScoped<IPayrollPdfService, PayrollPdfService>();
-builder.Services.AddScoped<IBenefitRepository, BenefitRepository>();
-builder.Services.AddScoped<IEmployeeBenefitRepository, EmployeeBenefitRepository>();
-builder.Services.AddScoped<IBenefitService, BenefitService>();
-builder.Services.AddScoped<IEmployeeBenefitService, EmployeeBenefitService>();
-builder.Services.AddScoped<IComplianceReportService, ComplianceReportService>();
-builder.Services.AddScoped<ITaxRuleRepository, TaxRuleRepository>();
-builder.Services.AddScoped<ISalaryComponentService, SalaryComponentService>();
 
 
-
-
-/*builder.Services.AddDependencies();
-*/
-
-
-
+builder.Services.AddRepositories();
+builder.Services.AddServices();
 
 
 

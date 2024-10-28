@@ -23,8 +23,7 @@ namespace HR_Sysytem.API.Controllers
             var report = await _complianceReportService.GenerateYearEndTaxReportAsync(year);
             return Ok(report);
         }
-        // نقطة نهاية لتحميل تقرير نهاية العام الضريبي كملف CSV
-        [HttpGet("DownloadYearEndTaxReport/{year}")]
+         [HttpGet("DownloadYearEndTaxReport/{year}")]
         public async Task<IActionResult> DownloadYearEndTaxReport(int year)
         {
             var report = await _complianceReportService.GenerateYearEndTaxReportAsync(year);
@@ -34,15 +33,13 @@ namespace HR_Sysytem.API.Controllers
                 return NotFound("No payroll data found for the specified year.");
             }
 
-            // تحويل البيانات إلى CSV
-            var csv = GenerateCsv(report);
+             var csv = GenerateCsv(report);
             var fileName = $"YearEndTaxReport_{year}.csv";
 
             return File(new System.Text.UTF8Encoding().GetBytes(csv), "text/csv", fileName);
         }
 
-        // تحويل التقرير إلى CSV
-        private string GenerateCsv(List<PayrollReportDTO> report)
+         private string GenerateCsv(List<PayrollReportDTO> report)
         {
             var csv = new StringBuilder();
             csv.AppendLine("EmployeeId,EmployeeName,BasicSalary,Bonus,Deductions,NetSalary,TaxesPaid");

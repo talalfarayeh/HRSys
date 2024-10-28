@@ -9,8 +9,8 @@ namespace HRSystem.DAL.Models
     public class TaxRule
     {
         public int TaxRuleId { get; set; }  // Primary Key
-        public decimal MinSalary { get; set; }  // أقل راتب لتطبيق هذه الشريحة
-        public decimal MaxSalary { get; set; }  // أعلى راتب لتطبيق هذه الشريحة
-        public decimal TaxPercentage { get; set; }  // نسبة الضريبة لهذه الشريحة
+        public decimal MinSalary { get; set; }  
+        public decimal MaxSalary { get; set; }  
+        public decimal TaxPercentage { get; set; }  
     }
 }

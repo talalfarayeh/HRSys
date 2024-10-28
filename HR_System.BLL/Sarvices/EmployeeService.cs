@@ -137,12 +137,10 @@ namespace HRSystem.BLL.Services
         }
         public EmployeeProfileDTO GetEmployeeProfile(int id)
         {
-            // جلب الموظف من المستودع
-            var employee = _employeeRepository.GetById(id);
+             var employee = _employeeRepository.GetById(id);
             if (employee == null) return null;
 
-            // تجميع بيانات الملف الشخصي مع الأقسام والأدوار
-            return new EmployeeProfileDTO
+             return new EmployeeProfileDTO
             {
                 EmployeeId = employee.EmployeeId,
                 FirstName = employee.FirstName,
@@ -153,8 +151,7 @@ namespace HRSystem.BLL.Services
                 DateHired = employee.DateHired,
                 
 
-                // جلب الأقسام التي ينتمي إليها الموظف
-                Departments = employee.EmployeeDepartments
+                 Departments = employee.EmployeeDepartments
                                       .Select(ed => ed.Department.DepartmentName)
                                       .ToList(),
 

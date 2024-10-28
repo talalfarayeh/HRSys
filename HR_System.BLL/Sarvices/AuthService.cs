@@ -21,17 +21,13 @@ namespace HRSystem.BLL.Services
          
         public EmployeeDTO Authenticate(string username, string password)
         {
-            // تشفير كلمة المرور قبل التحقق
-          /*  var passwordHash = HashPassword(password);*/
+           /*  var passwordHash = HashPassword(password);*/
 
-            // البحث عن الموظف في قاعدة البيانات باستخدام اسم المستخدم وكلمة المرور
-            var employee = _authRepository.GetEmployeeByUsernameAndPassword(username, password);
+             var employee = _authRepository.GetEmployeeByUsernameAndPassword(username, password);
 
-            // إذا لم يتم العثور على الموظف، إرجاع null
-            if (employee == null) return null;
+             if (employee == null) return null;
 
-            // تحويل كائن Employee إلى EmployeeDTO وإرجاعه
-            return new EmployeeDTO
+             return new EmployeeDTO
             {
                 EmployeeId = employee.EmployeeId,
                 FirstName = employee.FirstName,
@@ -41,13 +37,11 @@ namespace HRSystem.BLL.Services
                 DateHired = employee.DateHired,
                 Username = employee.Username,
                 PasswordHash = employee.PasswordHash,
-                // جلب الأدوار المرتبطة بالموظف
-                Roles = employee.EmployeeRoles.Select(er => er.Role.RoleName).ToList()
+                 Roles = employee.EmployeeRoles.Select(er => er.Role.RoleName).ToList()
             };
         }
 
-        // دالة لتشفير كلمة المرور باستخدام SHA256
-        private string HashPassword(string password)
+         private string HashPassword(string password)
         {
             using (var sha256 = SHA256.Create())
             {
